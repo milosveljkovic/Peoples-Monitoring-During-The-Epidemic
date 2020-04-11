@@ -1,0 +1,17 @@
+.center-title {
+    text-align: center;
+    margin: 15px;
+}
+
+.success {
+    color: green;
+    opacity: 0.8;
+    font-size: 15px;
+}
+
+.fail {
+    color: red;
+    opacity: 0.8;
+    font-size: 15px;
+
+}

@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import {Switch, Route, Router} from 'react-router-dom';
 import routes from './routes'
-import Device from "./pages/device";
 import Navbar from './components/navbar'
 import { createBrowserHistory } from 'history';
+import Dashboard from "./pages/dashboard/dashboard";
 const history=createBrowserHistory();
 
 class App extends React.Component {
@@ -28,10 +28,10 @@ class App extends React.Component {
             <div>
                 <Router history={history}>
                     <Navbar/>
-                    <div className='content-div'>
-                        <div id="wrapper" style={{'marginLeft': '64px', 'display': 'flex'}}>
+                    <div>
+                        <div>
                             <Switch>
-                                <Route exact path="/" component={Device}/>
+                                <Route exact path="/" component={Dashboard}/>
                                 {
                                     this.getRoutes(routes)
                                 }

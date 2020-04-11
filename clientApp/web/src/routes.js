@@ -1,12 +1,6 @@
-import Device from './pages/device'
-import Dashboard from './pages/dashboard'
+import Dashboard from './pages/dashboard/dashboard'
 
 var routes= [
-    {
-        path: "/device",
-        name: "Device",
-        component: Device,
-    },
     {
         path: "/dashboard",
         name: "Dashboard",
@@ -14,8 +8,8 @@ var routes= [
     },
     {
         path: "*",
-        name: "Device",
-        component: Device,
+        name: "Dashboard",
+        component: Dashboard,
     }
 ]
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
 import './navbar.css'
 
@@ -14,11 +14,6 @@ class Navbar extends React.Component {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarText">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link to="/device" className={'nav-link'}>
-                                Device
-                            </Link>
-                        </li>
                         <li className="nav-item">
                             <Link to="/dashboard" className={'nav-link'}>
                                 Dashboard
