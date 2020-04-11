@@ -1,8 +1,23 @@
 import React from 'react';
 import socketIOClient from 'socket.io-client';
-import {ENDPOINT_URL, NAMESPACE, highchart_options as options} from "../../common/constants";
+import {
+    ENDPOINT_URL,
+    NAMESPACE,
+    highchart_options as options,
+    gaugechart_options as gauge_options
+} from "../../common/constants";
 import Chart from "../../components/Chart";
 import './dashboard.css'
+
+//this is important to have because without this chart wont be available
+import GaugeChart from "../../components/Gaugechart";
+import * as ChartModuleMore from 'highcharts/highcharts-more.js';
+import HCSoldGauge from 'highcharts/modules/solid-gauge';
+import Highcharts from 'highcharts'
+
+ChartModuleMore(Highcharts);
+HCSoldGauge(Highcharts);
+//this is important to have because without this chart wont be available
 
 let socket;
 
@@ -12,7 +27,8 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             connected: false,
-            points: ''
+            points: '',
+            distance: 0
         }
     }
 
@@ -34,8 +50,8 @@ class Dashboard extends React.Component {
     }
 
     update_graph = (points) => {
-        console.log('Receiving points: ', points)
-        this.setState({points: points})
+        console.log('Receiving points: ', points.new_distance)
+        this.setState({points: points, distance: points.new_distance})
     }
 
     connect = () => {
@@ -73,6 +89,11 @@ class Dashboard extends React.Component {
                     <Chart
                         points={this.state.points}
                         options={options}/>
+                </div>
+                <div>
+                    <GaugeChart
+                        distance={this.state.distance}
+                        options={gauge_options}/>
                 </div>
             </div>
         )

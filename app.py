@@ -37,8 +37,8 @@ def start_iot():
         socketio.sleep(3)
         previous_x = current_x
         previous_y = current_y
-        current_x = current_x + randrange(1, 10)
-        current_y = current_y + randint(-10, 10)
+        current_x = current_x + randrange(2, 10)
+        current_y = current_y + randint(-5, 5)
         new_distance = calculate_distance(previous_x, previous_y, current_x, current_y)
         print('Sending x:{} y:{}, new_distance: {}'.format(current_x, current_y, new_distance))
         emit('data_event',
