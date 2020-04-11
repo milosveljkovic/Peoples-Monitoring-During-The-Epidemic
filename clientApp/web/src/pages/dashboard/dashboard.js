@@ -12,10 +12,7 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             connected: false,
-            points: {
-                x: 1,
-                y: 3
-            }
+            points: ''
         }
     }
 
@@ -44,13 +41,13 @@ class Dashboard extends React.Component {
     connect = () => {
         socket = socketIOClient(ENDPOINT_URL + NAMESPACE);
 
-        socket.on('my response', (points) => this.update_graph(points));
+        socket.on('data_event', (points) => this.update_graph(points));
         socket.on('connection_success', (is_OK) => this.connectionEstablised(is_OK));
     }
 
     activateEvents = () => {
         if (this.state.connected) {
-            socket.emit('set_iot_const')
+            socket.emit('start_iot')
         }
     }
 

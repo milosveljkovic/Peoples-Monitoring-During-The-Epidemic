@@ -1,13 +1,14 @@
 from flask import Flask
 from flask_socketio import SocketIO, emit
-from random import randrange
+from random import randrange, randint
+from common.calculations import calculate_distance
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, cors_allowed_origins='*')
 
-x = 10.0
-y = 20.0
+current_x = 50
+current_y = 50
 
 
 @app.route('/', methods=['GET'])
@@ -28,17 +29,21 @@ def handle_disconnect():
     print('Disconnected!')
 
 
-@socketio.on('set_iot_const', namespace='/iot')
-def mack_send():
+@socketio.on('start_iot', namespace='/iot')
+def start_iot():
     print('Generating data...')
+    global current_x, current_y
     while True:
         socketio.sleep(3)
-        print('Sending...')
-        xx = randrange(10)
-        yy = randrange(10)
-        x_l = xx
-        y_l = yy
-        emit('my response', {'x': x_l, 'y': y_l}, namespace='/iot')
+        previous_x = current_x
+        previous_y = current_y
+        current_x = current_x + randrange(1, 10)
+        current_y = current_y + randint(-10, 10)
+        new_distance = calculate_distance(previous_x, previous_y, current_x, current_y)
+        print('Sending x:{} y:{}, new_distance: {}'.format(current_x, current_y, new_distance))
+        emit('data_event',
+             {'x': current_x, 'y': current_y, 'new_distance': new_distance},
+             namespace='/iot')
 
 
 if __name__ == '__main__':
