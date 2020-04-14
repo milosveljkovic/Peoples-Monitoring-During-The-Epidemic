@@ -19,6 +19,11 @@ class Navbar extends React.Component {
                                 Dashboard
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/runners" className={'nav-link'}>
+                                Runners
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             </nav>

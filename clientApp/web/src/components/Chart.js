@@ -11,9 +11,17 @@ class Chart extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+        if(!nextProps.clear){
         const x = nextProps.points.x;
         const y = nextProps.points.y;
         my_char.series[0].addPoint([x, y]);
+        }else{
+            my_char.update({
+                series: [{
+                    data: []
+                }]
+            })
+        }
     }
 
     render() {
