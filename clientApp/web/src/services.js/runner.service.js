@@ -18,3 +18,17 @@ export function getRunnersService() {
         .then(response => response)
         .catch(errorMessage =>errorMessage)
 }
+
+export function getRunnerService(runner_id) {
+    var config = generateRequest(METHOD.GET, `runner/${runner_id}`,{});
+    return axios(config)
+        .then(response => response)
+        .catch(errorMessage =>errorMessage)
+}
+
+export function getRunnerPathService(runner_id) {
+    var config = generateRequest(METHOD.GET, `path?runner_id=${runner_id}`,{});
+    return axios(config)
+        .then(response => response)
+        .catch(errorMessage =>errorMessage)
+}

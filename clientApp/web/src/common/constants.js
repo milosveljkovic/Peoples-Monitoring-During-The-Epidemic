@@ -97,8 +97,9 @@ export const gaugechart_options = {
         ],
         lineWidth: 0,
         tickWidth: 0,
-        minorTickInterval: null,
         tickAmount: 2,
+        minorTickInterval: null,
+        tickPositions: [0,1],
         labels: {
             y: 16
         }

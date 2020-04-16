@@ -14,7 +14,8 @@ class GaugeChart extends Component {
     componentWillReceiveProps(nextProps, nextContext) {
         if (!nextProps.clear) {
             my_char.yAxis[0].update({
-                max: nextProps.goal_distance
+                max: nextProps.goal_distance,
+                tickPositions:[0,nextProps.goal_distance]
             })
             let add_distance = nextProps.distance;
             let add_dist_in_km = add_distance / M_TO_KM
