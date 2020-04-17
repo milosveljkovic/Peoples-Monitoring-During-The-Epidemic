@@ -11,9 +11,9 @@ class RunnerForm extends Component {
             email: '',
             name: '',
             device: '',
-            activity_level: '1 per week',
+            activity_level: 'Sedentary',
             x: 0, y: 0,
-            goal_distance: 0,
+            goal_distance: 1,
             success_response: '',
             show_response: false,
             path_name:''
@@ -35,11 +35,9 @@ class RunnerForm extends Component {
             goal_distance: this.state.goal_distance,
             path_name:this.state.path_name
         }
-        console.log(runner);
         testRequest(runner)
             .then(response => {
                 // this.setState({ success_response: response.data.message, show_response: true })
-
             })
 
         this.props.setDistance(this.state.goal_distance);
@@ -112,16 +110,17 @@ class RunnerForm extends Component {
                         <input
                             onChange={this.onChange}
                             name={'goal_distance'}
-                            value={goal_distance} min='0' max='100'
+                            value={goal_distance} min='1' max='100'
                             type="number" className="form-control" id="goal_distance" />
                     </div>
                 </div>
                 <div className="form row mt-3">
                     <label className="mx-3">Select activity level</label>
                     <select name="activity_level" className="form-control mx-3" onChange={this.onChange}>
-                        <option value={'1 per week'} key={'1 per week'}>1 per week</option>
-                        <option value={'3 per week'} key={'3 per week'}>3 per week</option>
-                        <option value={'5 per week'} key={'5 per week'}>5 per week</option>
+                        <option value={'Sedentary'} key={'Sedentary'}>Sedentary</option>
+                        <option value={'Somewhat active'} key={'Somewhat active'}>Somewhat active</option>
+                        <option value={'Active'} key={'Active'}>Active</option>
+                        <option value={'Very active'} key={'Very active'}>Very active</option>
                     </select>
                 </div>
             </form>

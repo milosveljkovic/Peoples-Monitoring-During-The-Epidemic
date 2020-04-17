@@ -36,7 +36,6 @@ class Dashboard extends React.Component {
     }
 
     connectionEstablised = (is_OK) => {
-        console.log(is_OK);
         if (is_OK === 200)
             this.setState({ connected: true })
     }
@@ -49,7 +48,6 @@ class Dashboard extends React.Component {
     }
 
     update_graph = (points) => {
-        console.log('Receiving points: ', points.new_distance)
         this.setState({ points: points, distance: points.new_distance })
     }
 
@@ -108,7 +106,7 @@ class Dashboard extends React.Component {
                             </div>
                         </div >
                         <div className="col-sm">
-                            <RunnerForm setDistance={(distnace) => this.setGoalDistance(distnace)} />
+                            <RunnerForm setDistance={(distance) => this.setGoalDistance(distance)} />
                         </div>
                     </div>
                 </div>
