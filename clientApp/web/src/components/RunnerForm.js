@@ -35,6 +35,11 @@ class RunnerForm extends Component {
             goal_distance: this.state.goal_distance,
             path_name:this.state.path_name
         }
+        localStorage.setItem('current_x',this.state.x)
+        localStorage.setItem('current_y',this.state.y)
+        localStorage.setItem('goal_distance',this.state.goal_distance)
+        localStorage.setItem('cur_email',this.state.email)
+        localStorage.setItem('path_name',this.state.path_name)
         testRequest(runner)
             .then(response => {
                 // this.setState({ success_response: response.data.message, show_response: true })

@@ -6,7 +6,10 @@ export const METHOD = {
     DELETE: 'DELETE'
 }
 
-export const ENDPOINT_URL = "http://127.0.0.1:5000/"
+export const SOCKET_ENDPOINT_URL = "http://127.0.0.1:5002/"
+export const RUNNER_ENDPOINT_URL= "http://127.0.0.1:5000/"
+export const PATH_ENDPOINT_URL= "http://127.0.0.1:5001/"
+
 export const NAMESPACE = 'iot';
 
 export const highchart_options = {

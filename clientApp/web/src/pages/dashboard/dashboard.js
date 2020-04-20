@@ -1,7 +1,7 @@
 import React from 'react';
 import socketIOClient from 'socket.io-client';
 import {
-    ENDPOINT_URL,
+    SOCKET_ENDPOINT_URL,
     NAMESPACE,
     highchart_options as options,
     gaugechart_options as gauge_options
@@ -10,6 +10,7 @@ import Chart from "../../components/Chart";
 import './dashboard.css'
 import RunnerForm from '../../components/RunnerForm'
 import Swal from 'sweetalert2'
+import {savePathService} from '../../services.js/runner.service'
 //this is important to have because without this chart wont be available
 import GaugeChart from "../../components/Gaugechart";
 import * as ChartModuleMore from 'highcharts/highcharts-more.js';
@@ -63,9 +64,14 @@ class Dashboard extends React.Component {
         this.setState({shouldClear:true})
     }
 
-    connect = () => {
-        socket = socketIOClient(ENDPOINT_URL + NAMESPACE);
+    savePath=(path)=>{
+        savePathService(path).then(response=>console.log(response)).catch(e=>console.log(e))
+    }
 
+    connect = () => {
+        socket = socketIOClient(SOCKET_ENDPOINT_URL + NAMESPACE);
+
+        socket.on('save_data_event', (path) => this.savePath(path));
         socket.on('data_event', (points) => this.update_graph(points));
         socket.on('connection_success', (is_OK) => this.connectionEstablised(is_OK));
         socket.on('reach_goal', (motivational_message) => this.showMessage(motivational_message))
@@ -73,8 +79,19 @@ class Dashboard extends React.Component {
 
     activateEvents = () => {
         if (this.state.connected) {
+            const data={
+                current_x:localStorage.getItem('current_x'),
+                current_y:localStorage.getItem('current_y'),
+                goal_distance:localStorage.getItem('goal_distance')
+            }
             this.setState({shouldClear:false})
-            socket.emit('start_iot')
+            socket.emit('start_iot',{
+                "current_x":localStorage.getItem('current_x'),
+                "current_y":localStorage.getItem('current_y'),
+                "goal_distance":localStorage.getItem('goal_distance'),
+                "cur_email":localStorage.getItem('cur_email'),
+                "path_name":localStorage.getItem('path_name')
+            })
         }
     }
 
