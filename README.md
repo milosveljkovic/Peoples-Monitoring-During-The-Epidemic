@@ -9,8 +9,10 @@
 5. In folder db you will find to files called 'iot_path.sql and iot_runner.sql' , you should import it in your DB. I'm using a
 MySql in this project.
 6. Change a constants from app.py : 'DB_LOCALHOST','DB_NAME','DB_PASSWORD'.. 
-7. Start server: in terminal be sure you are in root path, type in python app.py
-8. Start client: in terminal be sure you are in clientApp/web, type in npm start
+7. In project you will notice directory 'services', there you can find microservices (python apps)
+8. Every microservice should start(run) on different PORT
+9. Start each microservice: in terminal be sure you are in services/service1 path, type in $ python app.py (for every service)
+8. Start client: in terminal be sure you are in clientApp/web, type in $ npm start
 
 ## Project description
 
@@ -21,6 +23,8 @@ Start Running button! In that moment you cant follow your activity on charts bel
 x,y coordinates( your locations) and the second is for your current distance in KM.  Whene you reach youd goal, you'll see a 'Congratulations message'
 and that mean you win a race! On second 'page-runners' you'll see a runner statistic like 'Average-speed' , 'Average-heart_rate' and much more.
 
+### Project architecure
+![Runner Form](https://i.postimg.cc/SxB7X6Qj/Untitled-Diagram.png)
 
 ### Runner Form
 ![Runner Form](https://i.postimg.cc/J4sSDktc/dashboard.png)
