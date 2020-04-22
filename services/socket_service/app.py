@@ -11,12 +11,6 @@ app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins='*')
 
-# current_x = 0
-# current_y = 0
-# goal_distance = 0
-# cur_email = ''
-# path_name = ''
-
 
 @socketio.on('connect', namespace='/iot')
 def handle_connection():
@@ -31,11 +25,11 @@ def handle_disconnect():
 
 @socketio.on('start_iot', namespace='/iot')
 def start_iot(data):
-    current_x=int(data['current_x'])
-    current_y=int(data['current_y'])
-    goal_distance=int(data['goal_distance'])
-    cur_email=data['cur_email']
-    path_name=data['path_name']
+    current_x = int(data['current_x'])
+    current_y = int(data['current_y'])
+    goal_distance = int(data['goal_distance'])
+    cur_email = data['cur_email']
+    path_name = data['path_name']
 
     current_distance = 0
     distance_per_minut = 0
@@ -54,8 +48,8 @@ def start_iot(data):
              'current_y': current_y,
              'distance_per_minut': distance_per_minut,
              'current_distance': current_distance,
-             'cur_email':cur_email,
-             'path_name':path_name
+             'cur_email': cur_email,
+             'path_name': path_name
          },
          namespace='/iot')
     while True:
@@ -70,26 +64,26 @@ def start_iot(data):
         distance_per_minut = distance_per_minut+new_distance
         if(timer >= 60):
             timer = 0
-            emit('save_data_event',{
-                    'current_x': current_x,
-                    'current_y': current_y,
-                    'distance_per_minut': distance_per_minut,
-                    'current_distance': current_distance,
-                    'cur_email':cur_email,
-                    'path_name':path_name
-                },
+            emit('save_data_event', {
+                'current_x': current_x,
+                'current_y': current_y,
+                'distance_per_minut': distance_per_minut,
+                'current_distance': current_distance,
+                'cur_email': cur_email,
+                'path_name': path_name
+            },
                 namespace='/iot')
             distance_per_minut = 0
         if(current_distance >= (goal_distance*M_TO_KM)):
-            emit('save_data_event',{
+            emit('save_data_event', {
                 'current_x': current_x,
                 'current_y': current_y,
                 'distance_per_minut': distance_per_minut,
                 'current_distance': goal_distance*M_TO_KM,
-                'cur_email':cur_email,
-                'path_name':path_name
+                'cur_email': cur_email,
+                'path_name': path_name
             },
-            namespace='/iot')
+                namespace='/iot')
             fill_to_end = (goal_distance*M_TO_KM) - \
                 (current_distance-new_distance)
             emit('data_event',

@@ -1,19 +1,20 @@
 from flask import Flask, request, jsonify, make_response
 from flaskext.mysql import MySQL
 from flask_cors import CORS
-from db import DB_NAME,DB_USER,DB_PASS,DB_LOCALHOST,create_insert_query,generate_get_runner_query,generate_select_runners_query
+from db import DB_NAME, DB_USER, DB_PASS, DB_LOCALHOST, create_insert_query, generate_get_runner_query, generate_select_runners_query
 
-#runner microservice starts on port 5000
+# runner microservice starts on port 5000
 app = Flask(__name__)
 CORS(app)
 
 app.config['MYSQL_DATABASE_USER'] = DB_USER
-app.config['MYSQL_DATABASE_PASSWORD'] =DB_PASS
+app.config['MYSQL_DATABASE_PASSWORD'] = DB_PASS
 app.config['MYSQL_DATABASE_DB'] = DB_NAME
 app.config['MYSQL_DATABASE_HOST'] = DB_LOCALHOST
 
 mysql = MySQL()
 mysql.init_app(app)
+
 
 @app.route('/api/runner/set_runner', methods=['POST'])
 def set_runner():
@@ -33,6 +34,7 @@ def set_runner():
     finally:
         cursor.close()
         conn.close()
+
 
 @app.route('/api/runner/get_runners', methods=['GET'])
 def get_runners():
