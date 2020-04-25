@@ -60,9 +60,9 @@ def start_iot(data):
         current_y = current_y + randint(-3, 3)
         new_distance = calculate_distance(
             previous_x, previous_y, current_x, current_y)
-        current_distance = current_distance+new_distance
-        distance_per_minut = distance_per_minut+new_distance
-        if(timer >= 60):
+        current_distance = current_distance + new_distance
+        distance_per_minut = distance_per_minut + new_distance
+        if (timer >= 60):
             timer = 0
             emit('save_data_event', {
                 'current_x': current_x,
@@ -72,32 +72,32 @@ def start_iot(data):
                 'cur_email': cur_email,
                 'path_name': path_name
             },
-                namespace='/iot')
+                 namespace='/iot')
             distance_per_minut = 0
-        if(current_distance >= (goal_distance*M_TO_KM)):
+        if (current_distance >= (goal_distance * M_TO_KM)):
             emit('save_data_event', {
                 'current_x': current_x,
                 'current_y': current_y,
                 'distance_per_minut': distance_per_minut,
-                'current_distance': goal_distance*M_TO_KM,
+                'current_distance': goal_distance * M_TO_KM,
                 'cur_email': cur_email,
                 'path_name': path_name
             },
-                namespace='/iot')
-            fill_to_end = (goal_distance*M_TO_KM) - \
-                (current_distance-new_distance)
+                 namespace='/iot')
+            fill_to_end = (goal_distance * M_TO_KM) - \
+                          (current_distance - new_distance)
             emit('data_event',
                  {'x': current_x, 'y': current_y, 'new_distance': fill_to_end},
                  namespace='/iot')
             emit('reach_goal', {
-                 'message': 'Good job! You reached your goal!'},
+                'message': 'Good job! You reached your goal!'},
                  namespace='/iot')
             break
-        timer = timer+3
+        timer = timer + 3
         emit('data_event',
              {'x': current_x, 'y': current_y, 'new_distance': new_distance},
              namespace='/iot')
 
 
 if __name__ == '__main__':
-    socketio.run(app, port=5002)
+    socketio.run(app, host='0.0.0.0', port=5002)

@@ -24,7 +24,12 @@ def find_averages(data):
         counter += 1
         speed_sum += row[4]  # speed
         heart_rate += row[5]  # heart_rate
-    return [round(speed_sum/counter, 2), round(heart_rate/counter, 2)]
+    return [round(speed_sum / counter, 2), round(heart_rate / counter, 2)]
+
+
+@app.route('/api/test')
+def hello_world():
+    return 'Hello, World!'
 
 
 @app.route('/api/path', methods=['GET'])
@@ -48,7 +53,7 @@ def get_path():
                      'speed_avg': averages[0], 'heart_rate_avg': averages[1]}
         return make_response(json_data, 200)
     except Exception as e:
-        print("Problem selecting in path db :"+str(e))
+        print("Problem selecting in path db :" + str(e))
         return make_response({'error': 'Something went wrong...'}, 400)
     finally:
         cursor.close()
@@ -64,7 +69,7 @@ def set_runner():
     current_distance = path['current_distance']
     cur_email = path['cur_email']
     path_name = path['path_name']
-    speed = distance_per_minut/60  # speed [m/s]
+    speed = distance_per_minut / 60  # speed [m/s]
     insert_query = create_insert_path_query(
         current_x, current_y, current_distance, speed, cur_email, path_name)
     conn = None
@@ -77,11 +82,11 @@ def set_runner():
         reponse_data = {"message": "Successfully added  path!"}
         return make_response(jsonify(reponse_data), 200)
     except Exception as e:
-        print("Problem insterting in path db :"+str(e))
+        print("Problem insterting in path db :" + str(e))
     finally:
         cursor.close()
         conn.close()
 
 
 if __name__ == '__main__':
-    app.run(port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)

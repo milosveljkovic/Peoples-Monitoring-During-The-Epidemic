@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify, make_response
 from flaskext.mysql import MySQL
 from flask_cors import CORS
-from db import DB_NAME, DB_USER, DB_PASS, DB_LOCALHOST, create_insert_query, generate_get_runner_query, generate_select_runners_query
+from db import DB_NAME, DB_USER, DB_PASS, DB_LOCALHOST, create_insert_query, generate_get_runner_query, \
+    generate_select_runners_query
 
 # runner microservice starts on port 5000
 app = Flask(__name__)
@@ -30,7 +31,7 @@ def set_runner():
         reponse_data = {"message": "Successfully added user!"}
         return make_response(jsonify(reponse_data), 200)
     except Exception as e:
-        print("Problem insterting in iot.runner db :"+str(e))
+        print("Problem insterting in iot.runner db :" + str(e))
     finally:
         cursor.close()
         conn.close()
@@ -52,7 +53,7 @@ def get_runners():
             json_data.append(dict(zip(row_headers, result)))
         return make_response(jsonify(json_data), 200)
     except Exception as e:
-        print("Problem with iot.runner db :"+str(e))
+        print("Problem with iot.runner db :" + str(e))
     finally:
         cursor.close()
         conn.close()
@@ -72,11 +73,11 @@ def get_runner(runner_id):
                   'device': data[2], 'activity_level': data[3]}
         return make_response(runner, 200)
     except Exception as e:
-        print("Problem insterting in path db :"+str(e))
+        print("Problem insterting in path db :" + str(e))
     finally:
         cursor.close()
         conn.close()
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
