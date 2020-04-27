@@ -25,10 +25,10 @@ MySql in this project.
 5. run your image -> $sudo docker run -it -d -p port:port [name] (name should be same like in build name_of_image)
 example:
 ```
-$sudo run --net=host -it -d -p 5001:5001 flask_path 
-$sudo run --net=host -it -d -p 5000:5000 flask_runner
-$sudo run --net=host -it -d -p 5002:5002 flask_socket
-$sudo run -it -d -p 3000:3000 web 
+$sudo docker run --net=host -it -d -p 5001:5001 flask_path 
+$sudo docker run --net=host -it -d -p 5000:5000 flask_runner
+$sudo docker run --net=host -it -d -p 5002:5002 flask_socket
+$sudo docker run -it -d -p 3000:3000 web 
 ```
 Notes:
 
